@@ -8,12 +8,13 @@ import { RouterLink, RouterView } from 'vue-router'
   </div>
 </template>
 
-
 <style>
 .container {
   width: 1194px;
-  height: 834px;
+  max-height: 834px;
   margin: 0 auto;
   border: 1px solid black;
+  background-color: #F6F8FF;
+  overflow: hidden;
 }
 </style>
