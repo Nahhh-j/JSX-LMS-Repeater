@@ -4,15 +4,10 @@ import { RouterLink, RouterView } from 'vue-router'
 
 <template>
   <div class="container">
+    <RouterView/>
   </div>
 </template>
 
-<script>
-export default {
-  name: 'App',
-  // 여기에 추가적인 옵션 설정 가능
-}
-</script>
 
 <style>
 .container {
