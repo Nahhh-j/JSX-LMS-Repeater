@@ -30,16 +30,28 @@
     </div>
     <div class="scrollable-white-box">
       <!-- 데이터 1 -->
+      <div class="divider"></div>
       <div class="data-container">
-        <div class="left-data">
+        <div class="left-data" style="text-align: center; margin-top: -70px;">
           <p>2023년 고3 3월 언어와 매체</p>
         </div>
         <div class="right-data">
           <div class="blue-box">
-            <!-- 내용 -->
+            <div class="content">
+              <img src="@/assets/다운로드.png" alt="이미지">
+              <p>문제</p>
+            </div>
+            <div class="content">
+              <img src="@/assets/다운로드.png" alt="이미지">
+              <p>정답</p>
+            </div>
+            <div class="content">
+              <img src="@/assets/다운로드.png" alt="이미지">
+              <p>해설</p>
+            </div>
           </div>
           <div class="buttons">
-            <button class="action-button">응시하기</button>
+            <router-link to="/about" class="action-button">응시하기</router-link>
             <button class="action-button">이어서풀기</button>
           </div>
         </div>
@@ -48,15 +60,26 @@
       
       <!-- 데이터 2 -->
       <div class="data-container">
-        <div class="left-data">
+        <div class="left-data" style="text-align: center; margin-top: -70px;">
           <p>2023년 고3 3월 언어와 매체</p>
         </div>
         <div class="right-data">
           <div class="blue-box">
-            <!-- 내용 -->
+            <div class="content">
+              <img src="@/assets/다운로드.png" alt="이미지">
+              <p>문제</p>
+            </div>
+            <div class="content">
+              <img src="@/assets/다운로드.png" alt="이미지">
+              <p>정답</p>
+            </div>
+            <div class="content">
+              <img src="@/assets/다운로드.png" alt="이미지">
+              <p>해설</p>
+            </div>
           </div>
           <div class="buttons">
-            <button class="action-button">응시하기</button>
+            <router-link to="/about" class="action-button">응시하기</router-link>
             <button class="action-button">이어서풀기</button>
           </div>
         </div>
@@ -65,15 +88,26 @@
 
       <!-- 데이터 3 -->
       <div class="data-container">
-        <div class="left-data">
+        <div class="left-data" style="text-align: center; margin-top: -70px;">
           <p>2023년 고3 3월 언어와 매체</p>
         </div>
         <div class="right-data">
           <div class="blue-box">
-            <!-- 내용 -->
+            <div class="content">
+              <img src="@/assets/다운로드.png" alt="이미지">
+              <p>문제</p>
+            </div>
+            <div class="content">
+              <img src="@/assets/다운로드.png" alt="이미지">
+              <p>정답</p>
+            </div>
+            <div class="content">
+              <img src="@/assets/다운로드.png" alt="이미지">
+              <p>해설</p>
+            </div>
           </div>
           <div class="buttons">
-            <button class="action-button">응시하기</button>
+            <router-link to="/about" class="action-button">응시하기</router-link>
             <button class="action-button">이어서풀기</button>
           </div>
         </div>
@@ -88,16 +122,19 @@ export default {
   name: 'Navbar',
   data() {
     return {
-      selectedButton: null
+      selectedButton: '국어'
     };
   },
   methods: {
     goBack() {
-      // 뒤로가기 로직을 추가하세요
+      // 뒤로가기 로직
     },
     selectButton(button) {
       this.selectedButton = button;
-    }
+    },
+  },
+  mounted() {
+    this.selectedButton = '국어';
   }
 }
 </script>
@@ -222,8 +259,7 @@ export default {
 
 .scrollable-white-box {
   overflow-y: auto;
-
-  max-height: calc(100vh - 380px);
+  max-height: 300px;
   background-color: #FFFFFF;
 }
 
@@ -250,26 +286,57 @@ export default {
   width: 590px;
   height: 76px;
   background-color: #00068E;
+  display: flex;
+  border-radius: 5px;
+  justify-content: center; 
+  align-items: center;
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  /* flex-direction: column; */
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+  border-right: 1px solid white;
+  height: 80%; 
+}
+
+.content img {
+  width: 33px;
+}
+
+.content p {
+  font-family: "Pretendard Variable";
+  font-weight: bold;
+  font-size: 24px; 
+  color: #FFFFFF;
+  margin-left: 5px;
 }
 
 .buttons {
   display: flex;
-  align-self: flex-end;
+  justify-content: center;
 }
 
 .action-button {
+  font-family: "Pretendard Variable";
+  font-weight: bold;
+  font-size: 24px;
   background-color: #A7A7A7;
   color: #FFFFFF;
   border: none;
-  padding: 10px 20px;
+  padding: 12px 95px;
   border-radius: 10px;
   cursor: pointer;
   margin-left: 10px;
+  margin-top: 16px;
 }
 
 .divider {
   width: 100%;
-  height: 1px;
+  height: 0.5px;
   background-color: #B2B2B2;
   margin-bottom: 20px;
 }
