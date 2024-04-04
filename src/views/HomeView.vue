@@ -8,16 +8,16 @@
       <div class="section left-section">
         <p class="title">문제 풀이 완료</p>
         <div class="count">
-          <p class="big-number">3</p>
+          <p class="big-number" style="margin-bottom: 0rem;">3</p>
           <p class="small-text">건</p>
         </div>
-        <button class="blue-button">문제 풀이 완료 건수</button>
+        <button class="blue-button" style="margin-bottom: 0rem;">문제 풀이 완료 건수</button>
       </div>
       <div class="separator"></div>
       <div class="section right-section">
-        <p class="title">1 : 1 피드백 완료</p>
+        <p class="title" style="margin-bottom: 0rem;">1 : 1 피드백 완료</p>
         <div class="count">
-          <p class="big-number">1</p>
+          <p class="big-number" style="margin-bottom: 0rem;">1</p>
           <p class="small-text">건</p>
         </div>
         <button class="blue-button">피드백 완료 건수</button>
@@ -259,7 +259,7 @@ export default {
 
 .scrollable-white-box {
   overflow-y: auto;
-  max-height: 236px;
+  max-height: 255px;
   background-color: #FFFFFF;
 }
 
