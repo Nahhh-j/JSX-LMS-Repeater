@@ -3,11 +3,11 @@
   <!-- container로 하면 오류나서 box만듦(bootstrap때문에) -->
  <!-- 이 위는 가장 큰 div (template의 div) -->
 
- <header class="header">
+    <header class="header">
       <!-- 위에 nav 바 -->
       <nav class="p-3">
         <div class="nav-icons">
-         <img src="/src/assets/back_icon.png" class="nav-icon" alt="">
+         <img src="/src/assets/back_icon.png" class="nav-icon" @click="goBack" alt="뒤로가기">
          <img src="/src/assets/calender_icon.png" class="nav-icon" alt="">
         </div>  
       </nav>
@@ -89,7 +89,19 @@
 </div>
 </template>
 
-<script setup>
+<script>
+
+export default {
+  methods: {
+    goBack() {
+      this.$router.push('/');
+    },
+    selectButton(button) {
+      this.selectedButton = button;
+    },
+  },
+
+}
 
 </script>
 
@@ -99,11 +111,13 @@
   background-color: #00068E;
   border-bottom-left-radius: 20px; /* 왼쪽 밑부분의 둥글기 정도 */
   border-bottom-right-radius: 20px; /* 오른쪽 밑부분의 둥글기 정도 */
+  height: 30%;
 }
 
 .box{
   // background-color: #00068E;
   position: relative;
+  height: 100%;
 }
 
 .nav-icons{
@@ -113,6 +127,7 @@
 
 .nav-icon{
   width: 5%;
+  cursor: pointer;
 }
 
 .total-time{
@@ -131,6 +146,15 @@
   // position: relative;
   overflow: auto; /* 내용이 넘칠 때 스크롤 바 표시 */
   background-color: white;
+  height: 60%;
+}
+
+.subject-timer{
+  padding: 20px;
+  font-family: "Pretendard Variable";
+  font-weight: bold;
+  font-size: 30px;
+  color: gray;
 }
 
 .timer{
@@ -146,6 +170,7 @@
   font-weight: bold;
   font-size: 30px;
   color: gray;
+  height: 10%;
 }
 
 .subject-name{
@@ -155,19 +180,11 @@
   font-size: 30px;
 }
 
-.subject-timer{
-  padding: 20px;
-  font-family: "Pretendard Variable";
-  font-weight: bold;
-  font-size: 30px;
-  color: gray;
-}
-
 
 .plus{
   position: absolute; /* 절대 위치로 설정 */
         top: 730px; /* 컨테이너 상단에서 중앙으로 이동 */
-        left: 90%; /* 컨테이너 좌측에서 중앙으로 이동 */
+        left: 87%; /* 컨테이너 좌측에서 중앙으로 이동 */
         // transform: translate(-50%, -50%); /* 이미지의 중앙 정렬 */
 }
 
