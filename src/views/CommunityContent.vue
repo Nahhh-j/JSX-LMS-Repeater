@@ -20,7 +20,7 @@
             <!-- </div> -->
 
 
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
           </div>
           <div class="modal-body">
             <img src="/src/assets/study_check.png" width="700px" class="shadow" style="margin: 10px 0 20px 30px"></img>

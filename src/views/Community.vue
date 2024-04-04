@@ -1,9 +1,5 @@
 <template>
   <div style="background-image: url(/src/assets/배경.png); height: 100%;">
-
-    <!-- <img class="background-image" src="/src/assets/배경.png" style="z-index: -100;"></img> -->
-
-
     <!-- 뒤로가기 버튼 -->
     <div class="nav">
       <img src="@/assets/뒤로가기_1.png" class="back-button" @click="goBack" alt="뒤로가기">
@@ -12,8 +8,7 @@
 
     <!-- 사이드 메뉴 -->
     <div class="sidebar">
-        <img class="profile" img src="/src/assets/profile.jpg">
-        <!-- <button type="button" onclick="location.href='#'">공부방</button> -->
+        <img class="profile" img src="/src/assets/듬이.png">
       <div class="box1 nav-font box-shadow" @click=""> 
         <div class="icon"><i class="fa-regular fa-pen-to-square"></i></div>
         <div class="margin"></div>
@@ -107,6 +102,20 @@ export default {
   border-bottom-left-radius: 20px;
   margin: 17px;
   text-align: center;
+  position: relative; /* 상대 위치 지정 */
+}
+
+.box1::after {
+  content: ''; 
+  position: absolute;
+  top: 50%; 
+  right: 0;
+  width: 4px; 
+  height: 80px;
+  background-color: white;
+  transform: translateY(-50%);
+  border-bottom-left-radius: 20px;
+  border-top-left-radius: 20px;
 }
 
 .box2 {
