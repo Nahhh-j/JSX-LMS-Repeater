@@ -4,9 +4,14 @@
 
 <!-- header : jsx 로고 + 알림 벨 -->
     <header>
-      <div class="background d-flex s-between p-3 f-50px">
-        <img src="/src/assets/로고.png" class="w-10pc" alt="">
-        <i class="fa-solid fa-bell p-3 w-10pc white"></i>        
+      <div class="logo-bell">
+        <img src="/src/assets/로고.png" class="w-15pc" alt="">
+        <div class="bell">
+          <img src="/src/assets/bell_icon.png"  alt="">        
+          <div class="alarm-num">
+            oo
+          </div>
+        </div>
       </div>   
     </header>
 
@@ -15,53 +20,55 @@
     <div class="d-flex">
 
       <!-- 1st div : 좌측 상~하단에 있는 요소  -->
-      <div class="w-50pc p-3">
-        <section class="d-flex border p-3 m-20px i-center w-80pc">
+      <div class="left-menu">
+        <!-- 프로필 + 안내 문구 -->
+        <section class="profile">
           <div class="m-20">
-            <img src="/src/assets/\profile.jpg" class="w-50px border b-circle">
+            <img src="/src/assets/듬이.png" class="profile-img">
           </div>
-          <div class="p-3">
-            '조나희'님<br>반갑습니다! 
+          <div class="profile-hi">
+            <span class="profile-name">조나희</span>님<br>반갑습니다! 
             <!-- 이름 있는 부분 함수 처리 -->
           </div>
         </section>
+
+        <br>
+        <!-- 대학교 로고들 -->
+        <div class="univ-logos">
+            <img src="/src/assets/snu_logo.png" class="univ-logo" alt="">
+            <img src="/src/assets/ysu_logo.png" class="univ-logo" alt="">
+            <img src="/src/assets/kaist_logo.png" class="univ-logo" alt="">
+            <img src="/src/assets/플러스.png" class="univ-logo" alt="">
+            <!-- <div class="w-10pc border b-circle"> -->
+              <!-- <i class="fa-solid fa-plus i-center h-100pc"></i> -->
+              <!-- + 중앙에 위치시키는 법 모르겠음 ㅠ !!!!!!!!!!!! -->
+              <!-- 아 근데 안해도 된다 ㅎㅎ 피그마에 아이콘 있다  -->
+            <!-- </div> -->
+        </div>
         
-        <section class="d-flex border p-3 m-20px s-between">
-          <img src="/src/assets/snu_logo.png" class="w-30px b-circle w-10pc" alt="">
-          <img src="/src/assets/ysu_logo.png" class="w-30px b-circle w-10pc" alt="">
-          <img src="/src/assets/kaist_logo.png" class="w-30px b-circle w-10pc" alt="">
-          <div class="w-10pc border b-circle">
-            <i class="fa-solid fa-plus i-center h-100pc"></i>
-            <!-- + 중앙에 위치시키는 법 모르겠음 ㅠ !!!!!!!!!!!! -->
-            <!-- 아 근데 안해도 된다 ㅎㅎ 피그마에 아이콘 있다  -->
-          </div>
-        </section>
-        
-        <img src="/src/assets/study_check.png" class="w-100pc p-3" alt="">
+        <!-- 학습확인표(잔디) -->
+        <img src="/src/assets/study_check.png" class="study-check" alt="">
 
       </div>
       
       
       <!-- 2nd div : 우측 상~하단에 있는 요소  -->
-      <div class="w-50pc i-center d-column">
+      <div class="right-menu">
+        <router-link to="/home" class="main-menu">
+          <img src="/src/assets/test_icon.png" class="main-menu-icon" alt="">
+          <div class="main-menu-each">모의고사</div>
+        </router-link>
         
-        <div class="d-flex box b-radius m-20px p-2 background white w-80pc h-30pc">
-          <img src="/src/assets/test_icon.png" class="m-20px" alt="">
-          <div class="i-center f-30px">모의고사</div>
-        </div>
+        <router-link to="/community/content" class="main-menu">
+          <img src="/src/assets/community_icon.png" class="main-menu-icon" alt="">
+          <div class="main-menu-each">커뮤니티</div>
+        </router-link>
         
-        <div class="d-flex box b-radius m-20px p-2 background white w-80pc h-30pc">
-          <img src="/src/assets/community_icon.png" class="m-20px" alt="">
-          <div class="i-center f-30px">커뮤니티</div>
-        </div>
-        
-        <div class="d-flex box b-radius m-20px p-2 background white w-80pc h-30pc">
-          <img src="/src/assets/manage_icon.png" class="m-20px" alt="">
-          <div class="i-center f-30px">학습관리</div>
-        </div>
-        
+        <router-link to="/manage" class="main-menu">
+          <img src="/src/assets/manage_icon.png" class="main-menu-icon" alt="">
+          <div class="main-menu-each">학습관리</div>
+        </router-link>
       </div>
-      
     </div>
 
 
@@ -76,6 +83,137 @@
 </script>
 
 <style lang="scss" scoped>
+
+.logo-bell{
+  background-color: #00068E;
+  align-items: center;
+  display: flex;
+  height: 118px;
+  justify-content: space-between;
+  font-size: 50px;
+  border-bottom-right-radius: 20px; /* 오른쪽 밑부분의 둥글기 정도 */
+}
+
+.bell{
+  position: relative;
+  margin: 0px 30px 20px 20px;
+}
+
+.alarm-num{
+  border: 1px solid red;
+  background-color: red;
+  border-radius: 90%;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 68%; /* 컨테이너 상단에서 중앙으로 이동 */
+  left: 75%;
+// 아래는 font 관련
+  font-family: "Pretendard Variable";
+  font-weight: medium;
+  font-size: 10px;
+  text-align: center;
+  color: white;
+}
+
+.left-menu{
+  width: 50%;
+}
+
+.profile{
+  display: flex;
+  padding: 2%;
+  justify-content: center;
+  align-items: center;
+  width: 431px;
+  height: 163px;
+  background-color: #00068E;
+  color: white;
+  font-size: 20px;
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+  margin-top: -1px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.profile-hi {
+  font-family: "Pretendard Variable";
+  font-weight: light;
+  font-size: 30px;
+  padding: 3%;
+  margin-left: 19px;
+}
+
+.profile-name {
+  font-family: "Pretendard Variable";
+  font-weight: bold;
+  font-size: 40px; /* 조나희의 글꼴 크기 */
+}
+
+.profile-img{
+  width: 136px;
+  height: 136px;
+
+}
+
+.univ-logos{
+  background-color: rgb(204, 204, 204);
+  box-shadow: 2px 4px 4px rgb(212, 203, 203);
+  border-radius: 10px;
+  padding: 2%;
+  margin: 20px 20px 20px 40px;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.univ-logo{
+  width: 100px;
+  height: 100px;
+  padding: 5px;
+  margin: 0 10px 0 10px;
+}
+
+.study-check{
+  width: 93%;
+    /* padding: 2%; */
+  margin: 0px 0px 0px 31px;
+}
+
+.right-menu{
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 1%;
+  margin-top: 28px;
+}
+
+.main-menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #00068E;
+  color: white;
+  border-radius: 20px;
+  margin: 20px;
+  padding: 1%;
+  width: 86%;
+  height: 30%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.main-menu-icon {
+  margin-right: 30px;
+}
+
+.main-menu-each {
+  font-family: "Pretendard Variable";
+  font-weight: bold;
+  font-size: 47px;
+}
+
+// ---------------------------------------------------
 
 .background{
   background-color: #00068E
@@ -118,10 +256,6 @@
   margin: 10px 10px 10px 10px;
 }
 
-.m-20px{
-  margin: 20px 20px 20px 20px;
-}
-
 .w-30px{
   width: 30px;
 }
@@ -132,6 +266,12 @@
 
 .w-10pc{
   width: 10%;
+}
+
+.w-15pc{
+  width: 120.22px;
+  height: 69px;
+  margin: 30px;
 }
 
 .w-20pc{
