@@ -5,6 +5,7 @@ import MainView from '@/views/MainView.vue'
 import CommunityView from '@/views/Community.vue'
 import CommunityContent from '@/views/CommunityContent.vue'
 import ManageView from '@/views/ManageView.vue'
+import FeedbackView from '@/views/FeedbackView.vue';
 
 
 const router = createRouter({
@@ -12,8 +13,8 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: HomeView
+      name: 'main',
+      component: MainView
     },
     {
       path: '/about',
@@ -21,9 +22,14 @@ const router = createRouter({
       component: AboutView
     },
     {
-      path: '/main',
-      name: 'main',
-      component: MainView
+      path: '/feedback',
+      name: 'feedback',
+      component: FeedbackView
+    },
+    {
+      path: '/home',
+      name: 'home',
+      component: HomeView
     },
     {
 

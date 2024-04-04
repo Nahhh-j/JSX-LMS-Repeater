@@ -127,7 +127,7 @@ export default {
   },
   methods: {
     goBack() {
-      // 뒤로가기 로직
+      this.$router.push('/');
     },
     selectButton(button) {
       this.selectedButton = button;
@@ -313,6 +313,7 @@ export default {
   font-size: 24px; 
   color: #FFFFFF;
   margin-left: 5px;
+  margin-bottom: 0rem;
 }
 
 .buttons {
