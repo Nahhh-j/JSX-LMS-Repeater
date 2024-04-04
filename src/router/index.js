@@ -30,12 +30,13 @@ const router = createRouter({
       path: '/community',
       name: 'community',
       component: CommunityView,
+      redirect: '/community/content',
       children : [
         {
           path: '/community/content',
           name: 'community-content',
           component: CommunityContent,
-      }
+        }
       ]
     },
     {
