@@ -33,22 +33,15 @@
 </template>
 
 <script>
-import { RouterLink, RouterView } from 'vue-router'
-
 export default {
   name: 'Navbar',
   methods: {
     goBack() {
-      // 뒤로가기 로직
-    },
-    selectButton(button) {
-      this.selectedButton = button;
+      this.$router.push('/');
     },
   },
 }
-
 </script>
-
 
 <style lang="scss" scoped>
 
