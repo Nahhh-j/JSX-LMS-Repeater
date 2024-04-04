@@ -259,7 +259,7 @@ export default {
 
 .scrollable-white-box {
   overflow-y: auto;
-  max-height: 300px;
+  max-height: 236px;
   background-color: #FFFFFF;
 }
 
