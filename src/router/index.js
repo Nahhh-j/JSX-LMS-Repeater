@@ -4,6 +4,8 @@ import AboutView from '../views/AboutView.vue';
 import MainView from '@/views/MainView.vue'
 import CommunityView from '@/views/Community.vue'
 import CommunityContent from '@/views/CommunityContent.vue'
+import ManageView from '@/views/ManageView.vue'
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -22,7 +24,8 @@ const router = createRouter({
       path: '/main',
       name: 'main',
       component: MainView
-    },{
+    },
+    {
 
       path: '/community',
       name: 'community',
@@ -34,7 +37,12 @@ const router = createRouter({
           component: CommunityContent,
       }
       ]
-    }
+    },
+    {
+      path: '/manage',
+      name: 'manage',
+      component: ManageView
+    },
   ]
 })
 
