@@ -5,7 +5,7 @@
 <!-- header : jsx 로고 + 알림 벨 -->
     <header>
       <div class="background d-flex s-between p-3 f-50px">
-        <img src="C:\Users\user\OneDrive\바탕 화면\final_project\jsx_logo.png" class="w-10pc" alt="">
+        <img src="/src/assets/로고.png" class="w-10pc" alt="">
         <i class="fa-solid fa-bell p-3 w-10pc white"></i>        
       </div>   
     </header>
@@ -18,7 +18,7 @@
       <div class="w-50pc p-3">
         <section class="d-flex border p-3 m-20px i-center w-80pc">
           <div class="m-20">
-            <img src="c:\Users\user\Downloads\profile.jpg" class="w-50px border b-circle">
+            <img src="/src/assets/\profile.jpg" class="w-50px border b-circle">
           </div>
           <div class="p-3">
             '조나희'님<br>반갑습니다! 
