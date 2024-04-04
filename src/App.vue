@@ -9,7 +9,7 @@ import { RouterLink, RouterView } from 'vue-router'
 </template>
 
 
-<style>
+<style scoped>
 .container {
   width: 1194px;
   height: 834px;
