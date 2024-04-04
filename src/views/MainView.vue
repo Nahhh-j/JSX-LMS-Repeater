@@ -9,7 +9,7 @@
         <div class="bell">
           <img src="/src/assets/bell_icon.png"  alt="">        
           <div class="alarm-num">
-            oo
+            0
           </div>
         </div>
       </div>   
@@ -99,21 +99,19 @@
   margin: 0px 30px 20px 20px;
 }
 
-.alarm-num{
-  border: 1px solid red;
-  background-color: red;
-  border-radius: 90%;
-  width: 20px;
-  height: 20px;
-  position: absolute;
-  top: 68%; /* 컨테이너 상단에서 중앙으로 이동 */
-  left: 75%;
-// 아래는 font 관련
-  font-family: "Pretendard Variable";
-  font-weight: medium;
-  font-size: 10px;
-  text-align: center;
-  color: white;
+.alarm-num[data-v-bf5eacc9] {
+    border: 1px solid red;
+    background-color: red;
+    border-radius: 90%;
+    width: 26px;
+    height: 26px;
+    position: absolute;
+    top: 68%;
+    left: 75%;
+    font-family: "Pretendard Variable";
+    font-size: 16px;
+    text-align: center;
+    color: white;
 }
 
 .left-menu{
