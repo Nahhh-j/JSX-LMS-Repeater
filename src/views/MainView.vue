@@ -5,7 +5,7 @@
 <!-- header : jsx 로고 + 알림 벨 -->
     <header>
       <div class="background d-flex s-between p-3 f-50px">
-        <img src="C:\Users\user\OneDrive\바탕 화면\final_project\jsx_logo.png" class="w-10pc" alt="">
+        <img src="C:\Users\user\OneDrive\바탕 화면\final_project\jsx_logo.png" class="w-15pc" alt="">
         <i class="fa-solid fa-bell p-3 w-10pc white"></i>        
       </div>   
     </header>
@@ -132,6 +132,10 @@
 
 .w-10pc{
   width: 10%;
+}
+
+.w-15pc{
+  width: 15%;
 }
 
 .w-20pc{

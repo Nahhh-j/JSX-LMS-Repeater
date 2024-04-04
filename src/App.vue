@@ -11,7 +11,7 @@ import { RouterLink, RouterView } from 'vue-router'
 <style>
 .container {
   width: 1194px;
-  max-height: 834px;
+  height: 834px;
   margin: 0 auto;
   border: 1px solid black;
   background-color: #F6F8FF;
