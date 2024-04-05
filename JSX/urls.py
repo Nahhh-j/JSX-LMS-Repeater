@@ -13,6 +13,7 @@ urlpatterns = [
     path("manage/total-studytime/", views.manage_total_studytime),
     path("manage/subject/", views.manage_subject),
     path("articles/", views.article_list),
+    path("articles/<int:article_id>/", views.article_detail),
     path("articles/<int:article_id>/comments/", views.articles_comments),
     path("mytests/complete/", views.mytests_complete),
     path("feedback/complete/", views.feedback_complete),

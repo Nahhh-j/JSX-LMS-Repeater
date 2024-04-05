@@ -86,20 +86,31 @@ def article_list(request):
     serializer = StudyroomArticleSerializer(studyroomArticle, many=True)
     return Response(serializer.data, status=200)
 
+#article_detail / 특정 게시글 조회
+@api_view(["GET"])
+def article_detail(request,article_id):
+    article = StudyroomArticle.objects.get(pk=article_id)
+    serializer = StudyroomArticleSerializer(article)
+    return Response(serializer.data, status=200)
+
 # testcomplete / 모의고사에서 문제풀이 완료 숫자 변화, 지금은 모든 시험 조회임.
 @api_view(["GET"])
 def mytests_complete(request):
-    mytests = MyTest.objects.all() # 내가 본 테스트의 전체
+    student = Student.objects.get(id=1)
+    mytests = student.mytest_set.all() # 내가 본 테스트의 전체
     # mytests = user.mytest_set.filter(status=1) # 내가 본 테스트 중 스테이터스가 1인 것들.
     # 즉, complete라는 것은 status로 구분이 되는데, 그걸 filtering해서 complete된것만 가져오기.
-    serializer = testcompleteSerializer(mytests, many=True)
-    return Response(serializer.data, status=200)
+    # serializer = testcompleteSerializer(mytests, many=True)
+    mytests_len = len(mytests)
+    # return Response(serializer.data, status=200)
+    return Response({'mytests_len' : mytests_len})
+
 
 # testfeedbackcomplete / 모의고사에서 피드백 완료 개수, 지금은 모든 피드백 개수 조회임
 @api_view(["GET"])
 def feedback_complete(request):
     # user = User.objects.get(id=1) # 나로부터 시작
-    mytest = MyTest.objects.get(id=7)
+    mytest = MyTest.objects.get(id=6)
     myfeedback = mytest.feedback_set.all() #내가 받은 피드백 전체 
     myfeedback_len = len(myfeedback)
     return Response({'myfeedback_len' : myfeedback_len})
