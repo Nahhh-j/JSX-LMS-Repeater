@@ -1,123 +1,113 @@
 <template>
-<div class="box">
-  <!-- container로 하면 오류나서 box만듦(bootstrap때문에) -->
- <!-- 이 위는 가장 큰 div (template의 div) -->
-
+  <div class="box">
+    <!-- 헤더 -->
     <header class="header">
-      <!-- 위에 nav 바 -->
+      <!-- 네비게이션 바 -->
       <nav class="p-3">
         <div class="nav-icons">
-         <img src="/src/assets/back_icon.png" class="nav-icon" @click="goBack" alt="뒤로가기">
-         <img src="/src/assets/calender_icon.png" class="nav-icon" alt="">
-        </div>  
+          <img src="/src/assets/back_icon.png" class="nav-icon" @click="goBack" alt="뒤로가기">
+          <img src="/src/assets/calender_icon.png" class="nav-icon" alt="">
+        </div>
       </nav>
 
-      <!-- 총 학습시간 -->  
+      <!-- 총 학습시간 -->
       <div class="total-time">
         07 : 43 : 32
       </div>
     </header>
 
-    <!-- '타이머' 부분 -->  
+    <!-- 타이머 -->
     <section class="timer">
       타이머
     </section>
 
-    <!-- 과목별 타이머 부분 -->
+    <!-- 과목별 타이머 -->
     <section class="subject-timers">
-      <div class="d-flex s-between">
-        <div class="d-flex">
-          <img src="/src/assets/play_red.png" class="m-10px" alt="">
-          <div class="subject-name">국어</div>
+      <div v-for="(subject, index) in subjects" :key="index">
+        <div class="d-flex s-between">
+          <div class="d-flex">
+            <img :src="'/src/assets/' + (subject.isRunning ? 'stop_' : 'play_') + subject.color + '.png'" class="m-10px" alt="" @click="toggleTimer(index)">
+            <div class="subject-name">{{ subject.name }}</div>
+          </div>
+          <div class="subject-timer">{{ formatTime(subject.time) }}</div>
         </div>
-        <div class="subject-timer">01 : 02 : 42</div>
-      </div>
-      <hr>
-      <div class="d-flex s-between">
-        <div class="d-flex">
-          <img src="/src/assets/play_orange.png" class="m-10px" alt="">
-          <div class="subject-name">영어</div>
-        </div>
-        <div class="subject-timer">01 : 02 : 42</div>
-      </div>
-      <hr>
-      <div class="d-flex s-between">
-        <div class="d-flex">
-          <img src="/src/assets/play_yellow.png" class="m-10px" alt="">
-          <div class="subject-name">수학</div>
-        </div>
-        <div class="subject-timer">01 : 02 : 42</div>
-      </div>
-      <hr>
-      <div class="d-flex s-between">
-        <div class="d-flex">
-          <img src="/src/assets/play_green.png" class="m-10px" alt="">
-          <div class="subject-name">한국사</div>
-        </div>
-        <div class="subject-timer">01 : 02 : 42</div>
-      </div>
-      <hr>
-      <div class="d-flex s-between">
-        <div class="d-flex">
-          <img src="/src/assets/play_green.png" style="filter: saturate(200%)" class="m-10px" alt="">
-          <div class="subject-name">운동</div>
-        </div>
-        <div class="subject-timer">01 : 02 : 42</div>
-      </div>
-      <hr>
-      <div class="d-flex s-between">
-        <div class="d-flex">
-          <img src="/src/assets/play_orange.png" style="filter: saturate(200%)" class="m-10px" alt="">
-          <div class="subject-name">코딩</div>
-        </div>
-        <div class="subject-timer">01 : 02 : 42</div>
+        <hr> <!-- 각 과목 아래에 구분선 추가 -->
       </div>
     </section>
 
     <!-- (+) 버튼 -->
-    <div class="plus">
+    <div class="plus" @click="showModal">
       <img src="/src/assets/plus_icon.png" alt="">
     </div>
 
+    <!-- 검정 투명창 -->
+    <div class="overlay" v-if="isModalVisible" @click="hideModal"></div>
 
-
-
-
-
-
- <!-- 이 아래는 가장 큰 div (template의 div) -->
-</div>
+    <!-- 텍스트 입력창 -->
+    <div class="textinput" v-if="isModalVisible">
+      <input type="text" placeholder="카테고리 이름을 입력해주세요.">
+    </div>
+  </div>
 </template>
 
 <script>
-
 export default {
+  data() {
+    return {
+      isModalVisible: false,
+      subjects: [
+        { name: '국어', color: 'red', time: 0, timerId: null, isRunning: false },
+        { name: '영어', color: 'orange', time: 0, timerId: null, isRunning: false },
+        { name: '수학', color: 'yellow', time: 0, timerId: null, isRunning: false },
+        { name: '한국사', color: 'green', time: 0, timerId: null, isRunning: false },
+        { name: '운동', color: 'green', time: 0, timerId: null, isRunning: false },
+        { name: '코딩', color: 'green', time: 0, timerId: null, isRunning: false }
+      ]
+    };
+  },
   methods: {
     goBack() {
       this.$router.push('/');
     },
-    selectButton(button) {
-      this.selectedButton = button;
+    showModal() {
+      this.isModalVisible = true;
     },
-  },
-
-}
-
+    hideModal() {
+      this.isModalVisible = false;
+    },
+    toggleTimer(index) {
+      const subject = this.subjects[index];
+      if (subject.isRunning) {
+        clearInterval(subject.timerId);
+      } else {
+        subject.timerId = setInterval(() => {
+          subject.time++;
+        }, 1000);
+      }
+      subject.isRunning = !subject.isRunning;
+    },
+    formatTime(time) {
+      const hours = Math.floor(time / 3600);
+      const minutes = Math.floor((time % 3600) / 60);
+      const seconds = time % 60;
+      return `${hours.toString().padStart(2, '0')} : ${minutes.toString().padStart(2, '0')} : ${seconds.toString().padStart(2, '0')}`;
+    }
+  }
+};
 </script>
 
 <style lang="scss" scoped>
-
 .header{
   background-color: #00068E;
-  border-bottom-left-radius: 20px; /* 왼쪽 밑부분의 둥글기 정도 */
-  border-bottom-right-radius: 20px; /* 오른쪽 밑부분의 둥글기 정도 */
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px; 
   height: 30%;
 }
 
 .box{
-  // background-color: #00068E;
   position: relative;
   height: 100%;
+  background-color: white;
 }
 
 .nav-icons{
@@ -126,7 +116,7 @@ export default {
 }
 
 .nav-icon{
-  width: 5%;
+  width: 75px;
   cursor: pointer;
 }
 
@@ -143,10 +133,10 @@ export default {
 }
 
 .subject-timers{
-  // position: relative;
-  overflow: auto; /* 내용이 넘칠 때 스크롤 바 표시 */
+  overflow: auto;
   background-color: white;
   height: 60%;
+  margin-top: 10px;
 }
 
 .subject-timer{
@@ -157,24 +147,24 @@ export default {
   color: gray;
 }
 
-.timer{
-  border-bottom: 1px solid rgb(196, 196, 196);
-  border-bottom-left-radius: 20px; /* 왼쪽 밑부분의 둥글기 정도 */
-  border-bottom-right-radius: 20px; /* 오른쪽 밑부분의 둥글기 정도 */
+.timer {
   background-color: white;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 1%;
+  padding: 2%;
   font-family: "Pretendard Variable";
   font-weight: bold;
   font-size: 30px;
   color: gray;
   height: 10%;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .subject-name{
-  padding: 20px;
+  padding: 20px 20px 10px 20px;
   font-family: "Pretendard Variable";
   font-weight: bold;
   font-size: 30px;
@@ -182,14 +172,11 @@ export default {
 
 
 .plus{
-  position: absolute; /* 절대 위치로 설정 */
-        top: 730px; /* 컨테이너 상단에서 중앙으로 이동 */
-        left: 87%; /* 컨테이너 좌측에서 중앙으로 이동 */
-        // transform: translate(-50%, -50%); /* 이미지의 중앙 정렬 */
+  position: absolute;
+  top: 730px;
+  left: 90%;
+  z-index: 1000;
 }
-
-// -----------------------------------------
-
 
 hr{
   margin: 10px;
@@ -279,8 +266,11 @@ hr{
 .m--10{
   margin: 0 10px 0 10px;
 }
+
 .m-10px{
-  margin: 10px 10px 10px 10px;
+  margin: 15px 20px 10px 20px;
+  height: 65px;
+  width: 65px;
 }
 
 .m-20px{
@@ -359,5 +349,31 @@ hr{
   font-size: 50%;
 }
  
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999; 
+}
 
+.textinput {
+  font-family: "Pretendard Variable";
+  font-weight: bold;
+  font-size: 20px;
+  position: absolute;
+  top: 92%;
+  right: 7%;
+  transform: translateY(-50%);
+  z-index: 999;
+}
+
+.textinput input {
+  width: 523px;
+  height: 60px;
+  padding: 16px;
+  border-radius: 15px;
+}
 </style>

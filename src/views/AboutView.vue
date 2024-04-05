@@ -2,7 +2,11 @@
   <div class="about-container">
     <!-- 시험지 이미지 -->
     <div class="about-content">
-      <img src="@/assets/시험지.png" alt="시험지 이미지" class="exam-image">
+      <div class="canvas-container">
+        <img src="@/assets/시험지.png" alt="시험지 이미지" class="exam-image">
+        <!-- Canvas 요소 -->
+        <canvas ref="canvas" class="drawing-canvas"></canvas>
+      </div>
     </div>
     <!-- 뒤로가기 버튼 -->
     <img src="@/assets/뒤로가기_1.png" alt="뒤로가기" class="back-button" @click="goBack">
@@ -32,7 +36,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
@@ -40,6 +44,12 @@ const timeLeft = ref(3600); // 1시간(60분 * 60초)
 let timerInterval = null;
 const timerRunning = ref(false);
 const showOverlay = ref(false);
+
+const canvas = ref(null);
+let context = null;
+let isDrawing = false;
+let lastX = 0;
+let lastY = 0;
 
 const goBack = () => {
   router.push('/home');
@@ -79,6 +89,49 @@ const formattedTime = computed(() => formatTime(timeLeft.value));
 const goToFeedbackPage = () => {
   router.push('/feedback');
 }
+
+onMounted(() => {
+  if (canvas.value) {
+    context = canvas.value.getContext('2d');
+    canvas.value.width = canvas.value.offsetWidth;
+    canvas.value.height = canvas.value.offsetHeight;
+
+    canvas.value.addEventListener('mousedown', startDrawing);
+    canvas.value.addEventListener('mousemove', draw);
+    canvas.value.addEventListener('mouseup', stopDrawing);
+    canvas.value.addEventListener('mouseout', stopDrawing);
+  }
+});
+
+const startDrawing = (e) => {
+  isDrawing = true;
+  const rect = canvas.value.getBoundingClientRect();
+  lastX = e.clientX - rect.left;
+  lastY = e.clientY - rect.top;
+};
+
+const draw = (e) => {
+  if (!isDrawing) return;
+  context.strokeStyle = '#000'; // 그리기 색상 설정
+  context.lineWidth = 2; // 그리기 선 두께 설정
+  context.lineCap = 'round'; // 선 끝 모양 설정
+
+  const rect = canvas.value.getBoundingClientRect();
+  const currentX = e.clientX - rect.left;
+  const currentY = e.clientY - rect.top;
+
+  context.beginPath();
+  context.moveTo(lastX, lastY);
+  context.lineTo(currentX, currentY);
+  context.stroke();
+
+  lastX = currentX;
+  lastY = currentY;
+};
+
+const stopDrawing = () => {
+  isDrawing = false;
+};
 </script>
 
 <style scoped>
@@ -98,8 +151,9 @@ const goToFeedbackPage = () => {
   width: 100%;
   max-width: 1194px; 
   margin: 0 auto;
-  overflow-y: auto;
+  overflow-y: auto; /* 수직 스크롤 추가 */
   height: 100%;
+  position: relative; /* 추가 */
 }
 
 .exam-image {
@@ -190,5 +244,18 @@ const goToFeedbackPage = () => {
 .omr-real {
   max-width: 80%;
   max-height: 80%;
+}
+
+.canvas-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.drawing-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 </style>

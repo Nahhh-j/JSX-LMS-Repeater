@@ -77,7 +77,6 @@ const router = useRouter();
 const sidebarWidth = ref(40);
 
 const toggleSidebarWidth = () => {
-  // 토글링하여 사이드바의 너비 변경
   sidebarWidth.value = sidebarWidth.value === 40 ? 466 : 40;
 }
 
@@ -93,14 +92,14 @@ const goToMainPage = () => {
 <style scoped>
 .feedback-container {
   display: flex;
-  position: relative; /* 뒤로가기 버튼 위치를 상대적으로 설정하기 위해 부모 요소에 position: relative; 추가 */
+  position: relative;
 }
 
 .back-button {
-  position: absolute; /* 뒤로가기 버튼을 고정시키기 위해 position: absolute; 사용 */
-  top: 20px; /* 원하는 위치로 조절 */
-  left: 20px; /* 원하는 위치로 조절 */
-  z-index: 1; /* 시험지 위에 뒤로가기 버튼이 보이도록 z-index 설정 */
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 1;
 }
 
 .test-paper-wrapper {
@@ -227,8 +226,8 @@ const goToMainPage = () => {
 }
 
 .page-turn {
-  position: absolute; /* 페이지 넘김 아이콘을 고정시키기 위해 position: absolute; 사용 */
-  bottom: 20px; /* 원하는 위치로 조절 */
-  left: 20px; /* 원하는 위치로 조절 */
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
 }
 </style>

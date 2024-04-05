@@ -70,11 +70,6 @@
         </router-link>
       </div>
     </div>
-
-
-
-
-
   </div>
 </template>
 
@@ -91,7 +86,7 @@
   height: 118px;
   justify-content: space-between;
   font-size: 50px;
-  border-bottom-right-radius: 20px; /* 오른쪽 밑부분의 둥글기 정도 */
+  border-bottom-right-radius: 20px;
 }
 
 .bell{
@@ -145,7 +140,7 @@
 .profile-name {
   font-family: "Pretendard Variable";
   font-weight: bold;
-  font-size: 40px; /* 조나희의 글꼴 크기 */
+  font-size: 40px;
 }
 
 .profile-img{
@@ -173,7 +168,6 @@
 
 .study-check{
   width: 93%;
-    /* padding: 2%; */
   margin: 0px 0px 0px 31px;
 }
 
@@ -211,17 +205,13 @@
   font-size: 47px;
 }
 
-// ---------------------------------------------------
-
 .background{
   background-color: #00068E
 }
 
-
 .box{
   border: 1px solid black;
 }
-
 
 .b-circle{
   border-radius: 100%;
@@ -315,6 +305,4 @@
 .f-50pc{
   font-size: 50%;
 }
-
-
 </style>

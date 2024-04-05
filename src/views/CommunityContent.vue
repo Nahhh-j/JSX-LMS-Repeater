@@ -19,8 +19,6 @@
               </section>
             <!-- </div> -->
 
-
-            <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
           </div>
           <div class="modal-body">
             <img src="/src/assets/study_check.png" width="700px" class="shadow" style="margin: 10px 0 20px 30px"></img>
@@ -28,8 +26,6 @@
         </div>
       </div>
     </div>
-
-
 
     <div class="community-container">
     <div class="display">
@@ -132,39 +128,6 @@
   </div>
 </template>
 
-<!-- <script>
-import data from "@/data"
-export default {
-  name:"PrCommentCreate",
-  props:{
-    contentId:Number,
-    reload:Function
-  },
-  data(){
-    return{
-      context:''
-    }
-  },
-  methods:{
-    createComment(){
-      data.Comment.push(
-          {
-            comment_id: data.Comment[data.Comment.length - 1].comment_id + 1,
-            user_id: 1,
-            content_id: this.contentId,
-            context: this.context,
-            created_at: '2019-03-29 14:11:11',
-            updated_at: null
-          }
-      )
-      this.reload();
-      console.log(data.Comment)
-    }
-  },
-
-}
-</script> -->
-
 <style lang="scss" scoped>
 
 // modal style
@@ -183,7 +146,6 @@ export default {
 .univ-logos{
   background-color: rgb(204, 204, 204);
   width: 350px;
-  // box-shadow: 2px 4px 4px rgb(212, 203, 203);
   border-radius: 15px;
   padding: 2%;
   margin: 20px 0 20px 20px;
@@ -201,7 +163,6 @@ export default {
   position: relative;
 }
 
-// content style
 .font-bold{
   font-family: "Pretendard Variable";
   font-weight: bold;
@@ -256,8 +217,6 @@ export default {
 
 .community-container{
   background-color: rgba(255, 255, 255, 0.5);
-  // opacity: 60%;
-  // border: 1px solid ;
   box-shadow: 4px 4px 4px 4px lightgrey;
   border-radius : 10px;
   width: 850px;

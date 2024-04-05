@@ -48,12 +48,12 @@ export default {
   background-size: cover;
   background-position: center;
   width: 100%;
-  height: 100vh; /* 화면 전체 높이로 설정 */
+  height: 100vh;
 }
 
 
 .nav{
-  padding: 40px;
+  padding: 20px 20px 40px 20px;
 }
 
 .font{
@@ -102,7 +102,7 @@ export default {
   border-bottom-left-radius: 20px;
   margin: 17px;
   text-align: center;
-  position: relative; /* 상대 위치 지정 */
+  position: relative;
 }
 
 .box1::after {

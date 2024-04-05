@@ -6,7 +6,7 @@
     </div>
     <div class="white-box">
       <div class="section left-section">
-        <p class="title">문제 풀이 완료</p>
+        <p class="title" style="margin-bottom: 0rem;">문제 풀이 완료</p>
         <div class="count">
           <p class="big-number" style="margin-bottom: 0rem;">3</p>
           <p class="small-text">건</p>
@@ -295,7 +295,6 @@ export default {
 .content {
   flex: 1;
   display: flex;
-  /* flex-direction: column; */
   align-items: center;
   flex-direction: row;
   justify-content: center;
