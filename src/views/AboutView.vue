@@ -40,7 +40,7 @@ import { ref, computed, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
-const timeLeft = ref(3600); // 1시간(60분 * 60초)
+const timeLeft = ref(4800);
 let timerInterval = null;
 const timerRunning = ref(false);
 const showOverlay = ref(false);

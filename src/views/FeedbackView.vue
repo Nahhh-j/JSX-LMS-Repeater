@@ -16,47 +16,19 @@
       <div v-if="sidebarWidth === 466" class="sidebar-content">
         <div class="text-input-container">
           <!-- 텍스트 입력 박스 -->
-          <input type="text" class="text-input" placeholder="내용을 입력해주세요...">
+          <input type="text" class="text-input" placeholder="내용을 입력해주세요..." v-model="commentText">
           <!-- 댓글 버튼 -->
-          <img src="/src/assets/댓글.png" alt="댓글" class="comment-button">
+          <img src="/src/assets/댓글.png" alt="댓글" class="comment-button" @click="postComment">
         </div>
         <!-- 임시 댓글 박스 -->
         <div class="comment-wrapper">
-          <div class="comment-box">
+          <div class="comment-box" v-for="(comment, index) in comments" :key="index">
             <div class="comment-header">
               <img src="/src/assets/임시프로필.png" alt="임시이미지" class="temp-image">
-              <div class="user-name">권인구</div>
+              <div class="user-name">{{ comment.user }}</div>
               <img src="/src/assets/마이너스.png" alt="마이너스" class="minus-icon">
             </div>
-            <div class="comment-content">3번에는 그렇게 풀면 시간 관리가 어려울 거 같습니다. 핵심은 홍시이며, 홍시와 연관된 단어들을</div>
-          </div>
-          <!-- 댓글이 많아질 경우 스크롤 가능하도록 설정 -->
-          <div class="scrollable-area">
-            <!-- 추가적인 댓글 박스는 여기에 넣어줘 -->
-            <div class="comment-box">
-              <div class="comment-header">
-                <img src="/src/assets/임시프로필.png" alt="임시이미지" class="temp-image">
-                <div class="user-name">권인구</div>
-                <img src="/src/assets/마이너스.png" alt="마이너스" class="minus-icon">
-              </div>
-              <div class="comment-content">3번에는 그렇게 풀면 시간 관리가 어려울 거 같습니다. 핵심은 홍시이며, 홍시와 연관된 단어들을</div>
-            </div>
-            <div class="comment-box">
-              <div class="comment-header">
-                <img src="/src/assets/임시프로필.png" alt="임시이미지" class="temp-image">
-                <div class="user-name">권인구</div>
-                <img src="/src/assets/마이너스.png" alt="마이너스" class="minus-icon">
-              </div>
-              <div class="comment-content">3번에는 그렇게 풀면 시간 관리가 어려울 거 같습니다. 핵심은 홍시이며, 홍시와 연관된 단어들을</div>
-            </div>
-            <div class="comment-box">
-              <div class="comment-header">
-                <img src="/src/assets/임시프로필.png" alt="임시이미지" class="temp-image">
-                <div class="user-name">권인구</div>
-                <img src="/src/assets/마이너스.png" alt="마이너스" class="minus-icon">
-              </div>
-              <div class="comment-content">3번에는 그렇게 풀면 시간 관리가 어려울 거 같습니다. 핵심은 홍시이며, 홍시와 연관된 단어들을</div>
-            </div>
+            <div class="comment-content">{{ comment.content }}</div>
           </div>
         </div>
       </div>
@@ -71,10 +43,12 @@
 <script setup>
 import { useRouter } from 'vue-router';
 import { ref } from 'vue';
-
+import axios from 'axios';
 
 const router = useRouter();
 const sidebarWidth = ref(40);
+const comments = ref([]);
+const commentText = ref('');
 
 const toggleSidebarWidth = () => {
   sidebarWidth.value = sidebarWidth.value === 40 ? 466 : 40;
@@ -87,6 +61,35 @@ const goToAboutPage = () => {
 const goToMainPage = () => {
   router.push('/');
 }
+
+const postComment = async () => {
+  try {
+    const response = await axios.post('http://127.0.0.1:8000/JSX/feedback/7/add', {
+      content: commentText.value
+    });
+    // 데이터 전달 후 텍스트 리셋
+    commentText.value = '';
+    // 성공적으로 댓글이 추가된 경우, 댓글 목록 다시 불러오기
+    loadComments();
+  } catch (error) {
+    console.error('Error posting comment:', error);
+  }
+}
+
+const loadComments = async () => {
+  try {
+    const response = await axios.get('http://127.0.0.1:8000/JSX/feedback/7/contents/');
+    comments.value = response.data.map(item => ({
+      user: item.feedback_id.teacher_id.user_id.username,
+      content: item.content
+    }));
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+}
+
+// 페이지가 로드될 때 댓글을 불러오도록 설정
+loadComments();
 </script>
 
 <style scoped>

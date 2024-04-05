@@ -12,7 +12,7 @@
 
       <!-- 총 학습시간 -->
       <div class="total-time">
-        07 : 43 : 32
+        {{ formatTime(totalStudyTime) }}
       </div>
     </header>
 
@@ -37,6 +37,7 @@
 
     <!-- (+) 버튼 -->
     <div class="plus" @click="showModal">
+      <button class="add-button" @click="addSubject" v-show="isModalVisible"></button>
       <img src="/src/assets/plus_icon.png" alt="">
     </div>
 
@@ -45,25 +46,25 @@
 
     <!-- 텍스트 입력창 -->
     <div class="textinput" v-if="isModalVisible">
-      <input type="text" placeholder="카테고리 이름을 입력해주세요.">
+      <input type="text" placeholder="카테고리 이름을 입력해주세요." v-model="newSubjectName">
     </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   data() {
     return {
       isModalVisible: false,
-      subjects: [
-        { name: '국어', color: 'red', time: 0, timerId: null, isRunning: false },
-        { name: '영어', color: 'orange', time: 0, timerId: null, isRunning: false },
-        { name: '수학', color: 'yellow', time: 0, timerId: null, isRunning: false },
-        { name: '한국사', color: 'green', time: 0, timerId: null, isRunning: false },
-        { name: '운동', color: 'green', time: 0, timerId: null, isRunning: false },
-        { name: '코딩', color: 'green', time: 0, timerId: null, isRunning: false }
-      ]
+      subjects: [],
+      totalStudyTime: 0,
+      newSubjectName: ''
     };
+  },
+  mounted() {
+    this.fetchSubjectStudyTime();
   },
   methods: {
     goBack() {
@@ -82,6 +83,7 @@ export default {
       } else {
         subject.timerId = setInterval(() => {
           subject.time++;
+          this.totalStudyTime++;
         }, 1000);
       }
       subject.isRunning = !subject.isRunning;
@@ -91,6 +93,29 @@ export default {
       const minutes = Math.floor((time % 3600) / 60);
       const seconds = time % 60;
       return `${hours.toString().padStart(2, '0')} : ${minutes.toString().padStart(2, '0')} : ${seconds.toString().padStart(2, '0')}`;
+    },
+    async fetchSubjectStudyTime() {
+      try {
+        const response = await axios.get('http://127.0.0.1:8000/JSX/manage/subject-study-time/');
+        this.subjects = response.data.map((subject, index) => ({
+          name: subject.subject_name,
+          color: ['red', 'orange', 'yellow', 'green'][index % 4], // % 연산자를 사용하여 색상을 순환하도록 수정
+          time: 0,
+          timerId: null,
+          isRunning: false
+        }));
+      } catch (error) {
+        console.error('Error fetching subject study time:', error);
+      }
+    },
+    async addSubject() {
+      try {
+        await axios.post('http://127.0.0.1:8000/JSX/manage/subject/', { subject_name: this.newSubjectName });
+        this.fetchSubjectStudyTime();
+        this.hideModal();
+      } catch (error) {
+        console.error('Error adding subject:', error);
+      }
     }
   }
 };
@@ -168,6 +193,7 @@ export default {
   font-family: "Pretendard Variable";
   font-weight: bold;
   font-size: 30px;
+  width: 800px;
 }
 
 
@@ -375,5 +401,16 @@ hr{
   height: 60px;
   padding: 16px;
   border-radius: 15px;
+}
+
+.add-button {
+  position: absolute;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  z-index: 9999;
+  right: 2px;
+  width: 76px;
+  height: 76px;
 }
 </style>

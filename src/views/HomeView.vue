@@ -8,7 +8,7 @@
       <div class="section left-section">
         <p class="title" style="margin-bottom: 0rem;">문제 풀이 완료</p>
         <div class="count">
-          <p class="big-number" style="margin-bottom: 0rem;">3</p>
+          <p class="big-number" style="margin-bottom: 0rem;">{{ problemSolvedCount }}</p>
           <p class="small-text">건</p>
         </div>
         <button class="blue-button" style="margin-bottom: 0rem;">문제 풀이 완료 건수</button>
@@ -17,7 +17,7 @@
       <div class="section right-section">
         <p class="title" style="margin-bottom: 0rem;">1 : 1 피드백 완료</p>
         <div class="count">
-          <p class="big-number" style="margin-bottom: 0rem;">1</p>
+          <p class="big-number" style="margin-bottom: 0rem;">{{ feedbackCompleteCount }}</p>
           <p class="small-text">건</p>
         </div>
         <button class="blue-button">피드백 완료 건수</button>
@@ -29,100 +29,50 @@
       <button class="gray-button" :class="{ 'selected': selectedButton === '수학' }" @click="selectButton('수학')">수학</button>
     </div>
     <div class="scrollable-white-box">
-      <!-- 데이터 1 -->
-      <div class="divider"></div>
-      <div class="data-container">
-        <div class="left-data" style="text-align: center; margin-top: -70px;">
-          <p>2023년 고3 3월 언어와 매체</p>
-        </div>
-        <div class="right-data">
-          <div class="blue-box">
-            <div class="content">
-              <img src="@/assets/다운로드.png" alt="이미지">
-              <p>문제</p>
-            </div>
-            <div class="content">
-              <img src="@/assets/다운로드.png" alt="이미지">
-              <p>정답</p>
-            </div>
-            <div class="content">
-              <img src="@/assets/다운로드.png" alt="이미지">
-              <p>해설</p>
-            </div>
+      <!-- 데이터 반복 -->
+      <div v-for="(data, index) in testData" :key="index">
+        <div class="divider"></div>
+        <div class="data-container">
+          <div class="left-data" style="text-align: center; margin-top: -70px;">
+            <p style="font-size: 28px; margin-bottom: -3rem;">{{ data.title }}</p>
           </div>
-          <div class="buttons">
-            <router-link to="/about" class="action-button">응시하기</router-link>
-            <button class="action-button">이어서풀기</button>
-          </div>
-        </div>
-      </div>
-      <div class="divider"></div>
-      
-      <!-- 데이터 2 -->
-      <div class="data-container">
-        <div class="left-data" style="text-align: center; margin-top: -70px;">
-          <p>2023년 고3 3월 언어와 매체</p>
-        </div>
-        <div class="right-data">
-          <div class="blue-box">
-            <div class="content">
-              <img src="@/assets/다운로드.png" alt="이미지">
-              <p>문제</p>
+          <div class="right-data">
+            <div class="blue-box">
+              <div class="content">
+                <img src="@/assets/다운로드.png" alt="이미지">
+                <p>문제</p>
+              </div>
+              <div class="content">
+                <img src="@/assets/다운로드.png" alt="이미지">
+                <p>정답</p>
+              </div>
+              <div class="content">
+                <img src="@/assets/다운로드.png" alt="이미지">
+                <p>해설</p>
+              </div>
             </div>
-            <div class="content">
-              <img src="@/assets/다운로드.png" alt="이미지">
-              <p>정답</p>
+            <div class="buttons">
+              <router-link to="/about" class="action-button">응시하기</router-link>
+              <button class="action-button">이어서풀기</button>
             </div>
-            <div class="content">
-              <img src="@/assets/다운로드.png" alt="이미지">
-              <p>해설</p>
-            </div>
-          </div>
-          <div class="buttons">
-            <router-link to="/about" class="action-button">응시하기</router-link>
-            <button class="action-button">이어서풀기</button>
           </div>
         </div>
       </div>
-      <div class="divider"></div>
-
-      <!-- 데이터 3 -->
-      <div class="data-container">
-        <div class="left-data" style="text-align: center; margin-top: -70px;">
-          <p>2023년 고3 3월 언어와 매체</p>
-        </div>
-        <div class="right-data">
-          <div class="blue-box">
-            <div class="content">
-              <img src="@/assets/다운로드.png" alt="이미지">
-              <p>문제</p>
-            </div>
-            <div class="content">
-              <img src="@/assets/다운로드.png" alt="이미지">
-              <p>정답</p>
-            </div>
-            <div class="content">
-              <img src="@/assets/다운로드.png" alt="이미지">
-              <p>해설</p>
-            </div>
-          </div>
-          <div class="buttons">
-            <router-link to="/about" class="action-button">응시하기</router-link>
-            <button class="action-button">이어서풀기</button>
-          </div>
-        </div>
-      </div>
-      <div class="divider"></div>
     </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   name: 'Navbar',
   data() {
     return {
-      selectedButton: '국어'
+      selectedButton: '국어',
+      testData: [], // API로부터 받아온 데이터를 저장할 배열
+      problemSolvedCount: 0, // 문제 풀이 완료 건수를 저장할 변수
+      feedbackCompleteCount: 0 // 1:1 피드백 완료 건수를 저장할 변수
     };
   },
   methods: {
@@ -132,9 +82,26 @@ export default {
     selectButton(button) {
       this.selectedButton = button;
     },
+    async fetchData() {
+      try {
+        const response1 = await axios.get('http://127.0.0.1:8000/JSX/mytests/complete/');
+        const response2 = await axios.get('http://127.0.0.1:8000/JSX/feedback/complete/');
+
+        this.problemSolvedCount = response1.data.mytests_len; // 문제 풀이 완료 건수
+        this.feedbackCompleteCount = response2.data.myfeedback_len; // 1:1 피드백 완료 건수
+
+        const response3 = await axios.get('http://127.0.0.1:8000/JSX/testlist/');
+        this.testData = response3.data.map(item => ({
+          title: item.info // info 필드를 title로 변경하여 testData 배열에 추가
+        }));
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    }
   },
   mounted() {
     this.selectedButton = '국어';
+    this.fetchData(); // 컴포넌트가 마운트될 때 데이터를 가져오는 함수 호출
   }
 }
 </script>
@@ -259,7 +226,7 @@ export default {
 
 .scrollable-white-box {
   overflow-y: auto;
-  max-height: 255px;
+  max-height: 270px;
   background-color: #FFFFFF;
 }
 

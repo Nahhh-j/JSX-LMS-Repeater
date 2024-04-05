@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="article">
 
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -9,8 +9,8 @@
             <img class="profile" img src="/src/assets/profile_content.jpg"></img>
             <!-- <div class="modal-margin"> -->
               <div style="margin-right: 10px;">
-              <div style="font-size:40px; color: white;" class="font-bold"><b>권인구</b></div>
-              <div style="font-size:20px; color: white;" class="font-middle">출석기록 : 9/365일</div>
+              <div style="font-size:40px; color: white;" class="font-bold"><b>{{ article.user_id.username }}</b></div>
+              <div style="font-size:20px; color: white;" class="font-middle">{{ article.user_id.username }}님 9일 출석 완료!</div>
               </div>
               <section class="univ-logos">
                 <img src="/src/assets/snu_logo.png" class="univ-img">
@@ -35,24 +35,18 @@
       </div>
 <!-- 작성자명, 작성 날짜 -->
       <div class="margin">
-        <div style="font-size:40px;" class="font-bold"><b>권인구</b></div>
-        <div style="font-size:20px;" class="font-middle">2024년 4월 3일 13:00</div>
-      </div>
+          <div style="font-size:40px;" class="font-bold"><b>{{ article.user_id.username }}</b></div>
+          <div style="font-size:20px;" class="font-middle">{{ formatCreatedAt(article.created_at) }}</div>
+        </div>
     </div>
 
 <!-- 게시글 본문 -->
       <div style="margin: 8px 0 8px 30px; font-size: 18px;" class="font-middle">
-          질문이 있습니다. 답변 가능하신 분 설명해주시면 감사하겠습니다!
-          <br>
-          정비례는 x의 값이 2배가 될 때 y의 값이 2배가 된다는데 이 관계식이 어째서 y=ax인 건지 이해가 안 돼요. 
-          <br>
-          x가 11, a가 2고 y를 10으로 본다면 x값이 2배가 될 때 y값은 20이 되잖아요. y=ax는 x가 a배일 때 값과 
-          <br>
-          y값은 같다로 밖에 해석이 안되네요.. 이해가 쉽도록 상세하게 답변해주시면 감사하겠습니다.
+          {{ article.content }}
       </div>
 
 <!-- 이미지, 과목명 태그 -->
-    <div>
+  <div>
       <div style="margin: 20px 0 8px 30px;" class="display justify-content-between">
         <div style="position: relative;">
           <img src="/src/assets/test2.jpg" width="70px" class="shadow"></img>
@@ -65,26 +59,27 @@
       </div>
     </div>
 
+
 <!-- 댓글/공유 아이콘, 답글 개수 -->
       <div style="margin: 30px 0 0 30px; font-size: 25px; color: grey;">
         <div class="display">
           <i class="fa-regular fa-message"></i>
           <div style="margin-right: 20px;"></div>
           <i class="fa-solid fa-share-from-square"></i>
-          <div class="comment font-middle">답글 3개</div>
+          <div class="comment font-middle">답글 {{replyCount}}개</div>
         </div>
       </div>
 
       <hr>
 
 <!-- 댓글 입력창 -->
-    <div style="width: 775px; margin-left: 25px; font-size: 18px; position: relative;" class="font-middle">
-    <form action="" class="display">
-        <button class="send-button" style="position: absolute; top: 8px; right: 0;z-index: 100;">
-            <img src="/src/assets/send.png">
-        </button>
-        <input type="text" placeholder="내용을 입력해주세요" class="comment-input" style="position: relative;">
-    </form>
+<div style="width: 775px; margin-left: 25px; font-size: 18px; position: relative;" class="font-middle">
+  <form action="" class="display" @submit.prevent="handleSubmit">
+    <button class="send-button" style="position: absolute; top: 8px; right: 0;z-index: 100;">
+      <img src="/src/assets/send.png">
+    </button>
+    <input type="text" placeholder="내용을 입력해주세요" class="comment-input" style="position: relative;" v-model="commentText">
+  </form>
 </div>
 
 <!-- 댓글창 -->
@@ -92,34 +87,16 @@
       <div class="comment-container" style="margin-left: 25px;">
         <div class="display">
           <img class="comment-profile" src="/src/assets/profile_comment.jpg" style="border: 1px solid lightgrey;">
-        <div style="font-size:20px; margin-top: 17px;" class="font-middle"><b>박은지</b></div>
-        <div class="comment-comment font-middle" style="font-size: 15px;">2024년 4월 3일 14:00</div>
+          <div style="font-size:20px; margin-top: 17px;" class="font-middle"><b>{{ article.studycomment_set[0].user_id.username }}</b></div> <!-- 변경된 부분 -->
+          <div class="comment-comment font-middle" style="font-size: 15px;">{{ formatCreatedAt(article.studycomment_set[0].created_at) }}</div> <!-- 변경된 부분 -->
         </div>
 
-          <div style="margin: 0 18px 3px 18px; font-size: 18px;" class="font-middle">안녕하세요, 인구님! overflow 속성 대신에 overflow-x 속성이나 overflow-y 속성을 사용한다면 가로나  세로만 선택적으로 스크롤바를 보여줄 수 있습니다.</div>
+          <div style="margin: 0 18px 3px 18px; font-size: 18px;" class="font-middle">{{ article.studycomment_set[0].content }}</div>
         <div class="display">
           <div style="font-size: 20px; margin: 0 0 0 18px; color: grey;"><i class="fa-regular fa-message"></i></div>
-          <div style="margin: 0 0 0 660px; color: grey;" class="font-middle">답글 1개</div>
+          <div style="margin: 0 0 0 660px; color: grey;" class="font-middle">답글 0개</div>
         </div>
         </div>
-    </div>
-
-<!-- 대댓글창 -->
-    <div>
-      <div class="comment-comment-container">
-        <div class="display">
-          <img class="comment-profile" src="/src/assets/profile_content.jpg" style="border: 1px solid lightgrey;">
-        <div style="font-size:20px; margin-top: 17px;" class="font-middle"><b>권인구</b></div>
-        <div class="comment-comment-comment font-middle" style="font-size: 15px;">2024년 4월 3일 14:20</div>
-        </div>
-
-          <div style="margin: 0 18px -6px 18px; font-size: 18px;" class="font-middle">안녕하세요, 은지님! 친절한 설명 감사합니다. 그런데 요소의 콘텐츠가 너무 길어서 개발자가 원하는 블록 크기를 넘어갈 때,
-사용하는 속성은 무엇일까요?</div>
-        <div class="display">
-          <div style="font-size: 20px; margin: 10px 0 0 18px; color: grey;"><i class="fa-regular fa-message"></i></div>
-          <div style="margin: 10px 0 0 580px; color: grey;" class="font-middle">답글 0개</div>
-        </div>  
-      </div>
     </div>
 
     <br>
@@ -127,6 +104,51 @@
     </div>
   </div>
 </template>
+
+<script setup>
+import axios from 'axios';
+import { ref, onMounted } from 'vue';
+
+const article = ref(null);
+const replyCount = ref(0);
+const commentText = ref('');
+
+onMounted(async () => {
+  try {
+    const articleResponse = await axios.get('http://127.0.0.1:8000/JSX/articles/5/');
+    article.value = articleResponse.data;
+    const commentSumResponse = await axios.get('http://127.0.0.1:8000/JSX/articles/5/commentsum/');
+    replyCount.value = commentSumResponse.data.comment_len;
+    console.log(commentSumResponse.data.comment_len)
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+});
+
+const formatCreatedAt = (createdAt) => {
+  const date = new Date(createdAt);
+  return date.toLocaleDateString('ko-KR', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+    second: 'numeric'
+  });
+}
+
+const handleSubmit = async () => {
+  try {
+    const response = await axios.post('http://127.0.0.1:8000/JSX/articles/2/comments/', {
+      content: commentText.value // 사용자가 입력한 댓글
+    });
+    // 요청 성공 시, 추가 작업 수행 가능
+    commentText.value = ''; // 입력 필드 초기화
+  } catch (error) {
+    console.error('Error posting comment:', error);
+  }
+}
+</script>
 
 <style lang="scss" scoped>
 
@@ -251,7 +273,7 @@
 }
 
 .comment-comment{
-  margin-left: 485px;
+  margin-left: 400px;
   margin-top: 22px;
   font-size: 20px;
 }
@@ -267,10 +289,12 @@
 }
 
 .comment-input{
+  font-family: "Pretendard Variable";
   width:800px;
   height:50px;
   font-size:15px;
   border-radius: 15px;
+  padding: 17px;
 }
 
 .send-button{

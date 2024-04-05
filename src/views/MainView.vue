@@ -2,15 +2,13 @@
   <div>
 
 
-<!-- header : jsx 로고 + 알림 벨 -->
+    <!-- header : jsx 로고 + 알림 벨 -->
     <header>
       <div class="logo-bell">
         <img src="/src/assets/로고.png" class="w-15pc" alt="">
         <div class="bell">
-          <img src="/src/assets/bell_icon.png"  alt="">        
-          <div class="alarm-num">
-            0
-          </div>
+          <img src="/src/assets/bell_icon.png" alt="">        
+          <div class="alarm-num">{{ alarmSum }}</div>
         </div>
       </div>   
     </header>
@@ -27,7 +25,7 @@
             <img src="/src/assets/듬이.png" class="profile-img">
           </div>
           <div class="profile-hi">
-            <span class="profile-name">조나희</span>님<br>반갑습니다! 
+            <span class="profile-name">{{ userName }}</span>님<br>반갑습니다!
             <!-- 이름 있는 부분 함수 처리 -->
           </div>
         </section>
@@ -74,7 +72,34 @@
 </template>
 
 <script setup>
+import { ref, onMounted } from 'vue';
+import axios from 'axios';
 
+const userName = ref('');
+const alarmSum = ref(0);
+
+const fetchUserName = async () => {
+  try {
+    const response = await axios.get('http://127.0.0.1:8000/JSX/me/1/');
+    userName.value = response.data.username;
+  } catch (error) {
+    console.error('Error fetching user name:', error);
+  }
+}
+
+const fetchAlarmSum = async () => {
+  try {
+    const response = await axios.get('http://127.0.0.1:8000/JSX/me/alarmsum/');
+    alarmSum.value = response.data.alarm_len;
+  } catch (error) {
+    console.error('Error fetching alarm sum:', error);
+  }
+}
+
+onMounted(() => {
+  fetchUserName();
+  fetchAlarmSum();
+});
 </script>
 
 <style lang="scss" scoped>
