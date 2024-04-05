@@ -16,6 +16,7 @@ urlpatterns = [
     path("articles/<int:article_id>/", views.article_detail),
     path("articles/<int:article_id>/comments/", views.articles_comments),
     path("mytests/complete/", views.mytests_complete),
+    path("feedback/<int:feedback_id>/add", views.feedback_add),
     path("feedback/complete/", views.feedback_complete),
     path("feedback/<int:feedback_id>/contents/", views.feedback_contents),
     path("articles/<int:article_id>/commentsum/", views.articles_comments_num),

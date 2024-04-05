@@ -105,6 +105,18 @@ def mytests_complete(request):
     # return Response(serializer.data, status=200)
     return Response({'mytests_len' : mytests_len})
 
+# (문제지) 피드백 등록
+@api_view(["POST"])
+def feedback_add(request,feedback_id):
+    # user = User.objects.get(id=1)
+    feedback = Feedback.objects.get(pk=feedback_id)
+    data = request.data
+    serializer = FeedbackAddSerializer(data=data)
+    if serializer.is_valid(raise_exception=True):
+        # serializer.save(feedback_id=feedback, user_name = user)
+        serializer.save(feedback_id=feedback)
+        return Response(serializer.data, status=201)
+
 
 # testfeedbackcomplete / 모의고사에서 피드백 완료 개수, 지금은 모든 피드백 개수 조회임
 @api_view(["GET"])
