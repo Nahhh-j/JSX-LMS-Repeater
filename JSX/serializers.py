@@ -68,7 +68,7 @@ class FeedbackAddSerializer(serializers.ModelSerializer):
     user_name = UsernameSerializer(read_only=True)
     class Meta:
         model = FeedbackContent
-        fields = ["page_num", "content", "user_name"]
+        fields = ["content", "user_name"]
         # extra_kwargs = {"user_id": {"read_only": True}}
         # read_only_fields  = ('user_id',)
 

@@ -45,7 +45,7 @@ class Feedback(models.Model):
 
 class FeedbackContent(models.Model):
     feedback_id = models.ForeignKey(Feedback, on_delete=models.CASCADE)
-    page_num = models.PositiveSmallIntegerField()
+    page_num = models.PositiveSmallIntegerField(default=0)
     content = models.TextField(max_length=500)
 
 class StudyroomArticle(models.Model):
