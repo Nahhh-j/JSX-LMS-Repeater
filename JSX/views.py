@@ -11,6 +11,7 @@ from .models import User, Test, MyTest, Feedback, FeedbackContent, Subject, Teac
 #     users = User.objects.all()
 #     serializer = UsernameSerializer(users, many=True)
 #     return Response(serializer.data, status=200)
+
 # username/ 특정 유저 불러오기
 @api_view(["GET"])
 def me_detail(request, user_id):
@@ -22,17 +23,26 @@ def me_detail(request, user_id):
 @api_view(["GET"])
 def me_alarmsum_list(request):
     # user = request.user 로그인한 유저라는 뜻.
-    user = User.objects.get(id=1)   # 우리의 유저는 무조건 1번사람 고정.
+    user = User.objects.get(id=2)   # 우리의 유저는 무조건 1번사람 고정.
     alarms = user.alarm_set.all() # 유저에 대한 전체 알람.
     alarm_len = len(alarms)
     return Response({'alarm_len' : alarm_len})
 
+# 내 알람 제목 조회
 @api_view(["GET"])
 def me_alarm_title(request):
-    user = User.objects.get(id=1)
+    user = User.objects.get(id=2)
     alarm = user.alarm_set.all() # 유저에 대한 전체 알람.
     serializer = alarmSerializer(alarm, many=True)
     return Response(serializer.data, status=200)
+
+# 모의고사 리스트 조회
+@api_view(["GET"])
+def testlist(request):
+    test = Test.objects.all() #테스트 전체 내용 조회
+    serializer = testSerializer(test, many=True) 
+    return Response(serializer.data, status=200)
+
 
 # subjectstudytime/ 1번 유저의 특정과목과 해당과목의 공부시간을 조회하는 함수(과목별 공부시간)
 @api_view(["GET"])
@@ -42,17 +52,22 @@ def manage_subject_study_time_time(request):
     serializer = ManageSerializer(manages, many=True)
     return Response(serializer.data, status=200)
 
+from datetime import datetime, timedelta
+from django.db.models import Sum
 # # totalstudytime/ 1번 유저의 일별 총 공부시간을 조회하는 함수-------------------
 @api_view(["GET"])
 def manage_total_studytime(request):
     user = User.objects.get(id=1)   # 우리의 유저는 무조건 1번사람.
     manages = user.manage_set.all() # 유저에 대한 매니지 정보 전부조회
+    microseconds=manages.aggregate(sum=Sum('subject_time'))['sum']
+    
     serializer = TolalTimeSerializer(manages, many=True)
     # total_studytime = sum(serializer.subject_time)
     # total_studytime = sum(serializer)
-    print(serializer.data)
-    return Response()
-    return Response({'total_studytime' : total_studytime})
+    
+    # return Response()
+    return Response({'total_studytime' : str(microseconds)})
+    # return Response({'total_studytime' : total_studytime})
 
 # subjectadd/ URL에 대한 간단한 응답을 반환하는 뷰 함수
 @api_view(["POST"])
@@ -93,8 +108,9 @@ def feedback_complete(request):
 # feedback_feedbackcontent / 문제지 내 피드백 내용
 @api_view(["GET"])
 def feedback_contents(request,feedback_id):
-    user = User.objects.get(id=1)   # 우리의 유저는 무조건 1번사람.
-    feedbackContents = Feedback.feedbackContent_set.all() # 유저에 대한 매니지 정보 전부조회
+    # user = User.objects.get(id=9)   # 우리의 유저는 무조건 1번사람. 필요없음.
+    feedback = Feedback.objects.get(id=feedback_id)
+    feedbackContents = feedback.feedbackcontent_set.all() # 유저에 대한 매니지 정보 전부조회
     # feedbackContents = FeedbackContent.objects.get(pk=feedback_id)
     serializer = feedbackContentsSerializer(feedbackContents, many=True)
     return Response(serializer.data, status=200)
@@ -110,7 +126,7 @@ def articles_comments(request,article_id):
         serializer.save(studyroom_article_id=article, user_id = user)
         return Response(serializer.data, status=201)
     
-    
+
 # testpagetimer / 테스트 타이머
 @api_view(["GET"])
 def testpage_timer(request):

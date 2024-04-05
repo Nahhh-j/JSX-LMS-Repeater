@@ -60,10 +60,10 @@ class FeedbackSerializer(serializers.ModelSerializer):
 
 class feedbackContentsSerializer(serializers.ModelSerializer):
     user_id = UsernameSerializer(read_only=True)
-    feedback_id = FeedbackSerializer()
+    # feedback_id = FeedbackSerializer()
     class Meta:
         model = FeedbackContent
-        fields = ['content']
+        fields = ['user_id', 'content']
 
 
 class articlescommentsSerializer(serializers.ModelSerializer):
@@ -75,7 +75,6 @@ class articlescommentsSerializer(serializers.ModelSerializer):
         # read_only_fields  = ('user_id',)
 
 
-
 class subjecttimerserialiar(serializers.ModelSerializer):
     class Meta:
         model = Subject
@@ -85,3 +84,10 @@ class alarmSerializer(serializers.ModelSerializer):
     class Meta:
         model = Alarm
         fields = ['title']
+
+class testSerializer(serializers.ModelSerializer):
+    subject_id = subjectserialiar()
+    class Meta:
+        model = Test
+        fields = ['info','question','answer','commentary', 'subject_id']
+

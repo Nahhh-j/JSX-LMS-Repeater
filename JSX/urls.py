@@ -5,7 +5,7 @@ from JSX import views
 urlpatterns = [
     # path("", views.data),
     # path("", views.article_list)
-    # path("users/", views.username_list),
+    path("testlist/", views.testlist),
     path("me/<int:user_id>/", views.me_detail),
     path("me/alarmsum/", views.me_alarmsum_list),
     path("me/alarm/title/", views.me_alarm_title),
@@ -17,6 +17,8 @@ urlpatterns = [
     path("mytests/complete/", views.mytests_complete),
     path("feedback/complete/", views.feedback_complete),
     path("feedback/<int:feedback_id>/contents/", views.feedback_contents),
+
     # path("testnamekorean/", views.testnamekorean_list),
+    
     path("testpage/timer/", views.testpage_timer),
 ]
