@@ -134,3 +134,16 @@ def testpage_timer(request):
     serializer = subjecttimerserialiar(subjecttime, many=True) # 시간값만 가져오기
     return Response(serializer.data, status=200)
 
+#특정 게시글 댓글 총 갯수 
+@api_view(["GET"])
+def articles_comments_num(request,article_id):
+    article = StudyroomArticle.objects.get(pk=article_id)
+    comment = article.studycomment_set.all() 
+    comment_len = len(comment)
+    return Response({'comment_len' : comment_len})
+
+
+# user = User.objects.get(id=2)   # 우리의 유저는 무조건 1번사람 고정.
+#     alarms = user.alarm_set.all() # 유저에 대한 전체 알람.
+#     alarm_len = len(alarms)
+#     return Response({'alarm_len' : alarm_len})
