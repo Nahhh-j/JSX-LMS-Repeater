@@ -79,10 +79,11 @@ class TalkComment(models.Model):
     content = models.TextField(max_length=300)
     created_at = models.DateTimeField(auto_now_add=True)
 
+from datetime import datetime, timedelta
 class Manage(models.Model):
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
     subject_name = models.CharField(max_length=100)
-    subject_time = models.DurationField()
+    subject_time = models.DurationField(default=timedelta())
     created_at = models.DateTimeField(auto_now_add=True)
 
 class Alarm(models.Model):

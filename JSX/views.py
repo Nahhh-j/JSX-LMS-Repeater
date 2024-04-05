@@ -49,7 +49,7 @@ def testlist(request):
 def manage_subject_study_time_time(request):
     user = User.objects.get(id=1)   # 우리의 유저는 무조건 1번사람.
     manages = user.manage_set.all() # 유저에 대한 매니지 정보 전부조회
-    serializer = ManageSerializer(manages, many=True)
+    serializer = ManageSerializer(manages)
     return Response(serializer.data, status=200)
 
 from datetime import datetime, timedelta
@@ -98,8 +98,9 @@ def mytests_complete(request):
 # testfeedbackcomplete / 모의고사에서 피드백 완료 개수, 지금은 모든 피드백 개수 조회임
 @api_view(["GET"])
 def feedback_complete(request):
-    user = User.objects.get(id=1) # 나로부터 시작
-    myfeedback = user.feedback_set.all() #내가 받은 피드백 전체
+    # user = User.objects.get(id=1) # 나로부터 시작
+    user = Teacher.objects.get(id=1)
+    myfeedback = user.feedback_set.all() #내가 받은 피드백 전체 
     serializer = testfeedbackcompleteSerializer(myfeedback, many=True)
     return Response(serializer.data, status=200)
 
