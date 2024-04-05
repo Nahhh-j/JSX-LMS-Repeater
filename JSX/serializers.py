@@ -75,10 +75,22 @@ class feedbackContentsSerializer(serializers.ModelSerializer):
     # teacher_id = TeachernameSerializer()
 
     class FeedbackSerializer(serializers.ModelSerializer):
+        class FeedbackTeacherSerializer(serializers.ModelSerializer):
+            class FeedbackUserSerializer(serializers.ModelSerializer):
+                class Meta:
+                    model = User
+                    fields = ['username']    
+
+            user_id = FeedbackUserSerializer()
+            class Meta:
+                model = Teacher
+                fields = ['user_id']
+                
+        teacher_id = FeedbackTeacherSerializer()
         class Meta:
             model = Feedback
             fields = ['teacher_id']
-
+            
     feedback_id = FeedbackSerializer()
     class Meta:
         model = FeedbackContent
