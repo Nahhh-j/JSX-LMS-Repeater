@@ -14,7 +14,7 @@ class UsernameSerializer(serializers.ModelSerializer):
 class ManageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Manage
-        fields = ['subject_name','subject_time']
+        fields = ['subject_name']
 
 class TolalTimeSerializer(serializers.ModelSerializer):
     class Meta:
