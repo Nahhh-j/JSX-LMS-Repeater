@@ -5,7 +5,7 @@
 **framework :** `Vuejs` `Django`
 <br/><br/>
 
-[기획 문서](hhttps://infrequent-morning-c1a.notion.site/2ab54d5d6f074c2da5f2473f134d4779?v=09a4cb89e8fd4ca4b901d13469b0ac26&pvs=4)
+[기획 문서](https://infrequent-morning-c1a.notion.site/2ab54d5d6f074c2da5f2473f134d4779?v=09a4cb89e8fd4ca4b901d13469b0ac26&pvs=4)
 
 [API 명세서](https://documenter.getpostman.com/view/33630716/2sA35LVKf6#5597fa1e-5f1c-45f2-9d95-fae8dce1192c)
 
