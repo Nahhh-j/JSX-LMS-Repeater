@@ -49,7 +49,7 @@ def testlist(request):
 def manage_subject_study_time_time(request):
     user = User.objects.get(id=1)   # 우리의 유저는 무조건 1번사람.
     manages = user.manage_set.all() # 유저에 대한 매니지 정보 전부조회
-    serializer = ManageSerializer(manages)
+    serializer = ManageSerializer(manages,many=True)
     return Response(serializer.data, status=200)
 
 from datetime import datetime, timedelta
