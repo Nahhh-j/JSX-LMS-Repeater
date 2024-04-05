@@ -142,9 +142,21 @@ def articles_comments(request,article_id):
 # testpagetimer / 테스트 타이머
 @api_view(["GET"])
 def testpage_timer(request):
-    subjecttime = Subject.objects.all()
-    serializer = subjecttimerserialiar(subjecttime, many=True) # 시간값만 가져오기
+    subjecttime = Subject.objects.get(id=1)
+    serializer = subjecttimerserialiar(subjecttime) # 시간값만 가져오기
     return Response(serializer.data, status=200)
+
+    user = User.objects.get(id=1)   # 우리의 유저는 무조건 1번사람.
+    manages = user.manage_set.all() # 유저에 대한 매니지 정보 전부조회
+    microseconds=manages.aggregate(sum=Sum('subject_time'))['sum']
+    
+    serializer = TolalTimeSerializer(manages, many=True)
+    # total_studytime = sum(serializer.subject_time)
+    # total_studytime = sum(serializer)
+    
+    # return Response()
+    return Response({'total_studytime' : str(microseconds)})
+
 
 #특정 게시글 댓글 총 갯수 
 @api_view(["GET"])
