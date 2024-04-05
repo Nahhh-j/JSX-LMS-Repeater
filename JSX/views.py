@@ -99,10 +99,10 @@ def mytests_complete(request):
 @api_view(["GET"])
 def feedback_complete(request):
     # user = User.objects.get(id=1) # 나로부터 시작
-    user = Teacher.objects.get(id=1)
-    myfeedback = user.feedback_set.all() #내가 받은 피드백 전체 
-    serializer = testfeedbackcompleteSerializer(myfeedback, many=True)
-    return Response(serializer.data, status=200)
+    mytest = MyTest.objects.get(id=7)
+    myfeedback = mytest.feedback_set.all() #내가 받은 피드백 전체 
+    myfeedback_len = len(myfeedback)
+    return Response({'myfeedback_len' : myfeedback_len})
 
 
 
@@ -131,7 +131,7 @@ def articles_comments(request,article_id):
 # testpagetimer / 테스트 타이머
 @api_view(["GET"])
 def testpage_timer(request):
-    subjecttime = Subject.objects.all() #내가 받은 피드백 전체
+    subjecttime = Subject.objects.all()
     serializer = subjecttimerserialiar(subjecttime, many=True) # 시간값만 가져오기
     return Response(serializer.data, status=200)
 
