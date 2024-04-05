@@ -90,4 +90,3 @@ class testSerializer(serializers.ModelSerializer):
     class Meta:
         model = Test
         fields = ['info','question','answer','commentary', 'subject_id']
-

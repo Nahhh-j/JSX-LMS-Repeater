@@ -86,6 +86,9 @@ class Manage(models.Model):
     subject_time = models.DurationField(default=timedelta())
     created_at = models.DateTimeField(auto_now_add=True)
 
+
+    def __str__(self):
+        return str(self.subject_time)
 class Alarm(models.Model):
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=30)
