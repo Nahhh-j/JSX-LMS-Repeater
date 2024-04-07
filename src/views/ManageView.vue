@@ -26,7 +26,7 @@
       <div v-for="(subject, index) in subjects" :key="index">
         <div class="d-flex s-between">
           <div class="d-flex">
-            <img :src="'/src/assets/' + (subject.isRunning ? 'stop_' : 'play_') + subject.color + '.png'" class="m-10px" alt="" @click="toggleTimer(index)">
+            <img :src="getButtonImage(subject.isRunning, subject.color)" class="m-10px" alt="" @click="toggleTimer(index)">
             <div class="subject-name">{{ subject.name }}</div>
           </div>
           <div class="subject-timer">{{ formatTime(subject.time) }}</div>
@@ -60,7 +60,8 @@ export default {
       isModalVisible: false,
       subjects: [],
       totalStudyTime: 0,
-      newSubjectName: ''
+      newSubjectName: '',
+      runningTimerIndex: null // 실행 중인 타이머의 인덱스 저장
     };
   },
   mounted() {
@@ -80,11 +81,26 @@ export default {
       const subject = this.subjects[index];
       if (subject.isRunning) {
         clearInterval(subject.timerId);
+        // 현재 실행 중인 타이머가 해당 과목의 타이머인 경우에만 실행 중인 타이머 ID 초기화
+        if (this.runningTimerId === subject.timerId) {
+          this.runningTimerId = null;
+        }
       } else {
+        // 현재 실행 중인 타이머가 있으면 멈춤
+        if (this.runningTimerId !== null) {
+          clearInterval(this.runningTimerId);
+          // 이전에 실행 중이던 타이머의 버튼 이미지를 stop.png로 변경
+          const previousSubject = this.subjects.find(s => s.timerId === this.runningTimerId);
+          if (previousSubject) {
+            previousSubject.isRunning = false;
+          }
+        }
         subject.timerId = setInterval(() => {
           subject.time++;
           this.totalStudyTime++;
         }, 1000);
+        // 현재 실행 중인 타이머의 ID 저장
+        this.runningTimerId = subject.timerId;
       }
       subject.isRunning = !subject.isRunning;
     },
@@ -116,6 +132,9 @@ export default {
       } catch (error) {
         console.error('Error adding subject:', error);
       }
+    },
+    getButtonImage(isRunning, color) {
+      return `/src/assets/${isRunning ? 'stop_' : 'play_'}${color}.png`;
     }
   }
 };
