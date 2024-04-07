@@ -14,6 +14,8 @@
 | 박은지 | Front-end, Editor |
 | 손수지 | Data-manager, Back-end |
 | 조나희 | Leader, Designer, Front-end |
+
+
 <br/><br/>
 
 
@@ -98,17 +100,17 @@ $ pip install -r requirements.txt
 |        |        |        |
 |--------|--------|--------|
 | 메인화면 | 목표대학 설정 | 알림 |
-|<img src="github/메인화면.png" width="700" height="280">|<img src="github/목표대학.png" width="700" height="280">|<img src="github/알림.png" width="700" height="280">|
+|<img src="github/메인화면.png" width="700" height="200">|<img src="github/목표대학.png" width="700" height="200">|<img src="github/알림.png" width="700" height="200">|
 | 모의고사(1) | 모의고사(2) | 모의고사(3) |
-|<img src="github/모의고사.png" width="700" height="280">|<img src="github/모의고사1.png" width="700" height="280">|<img src="github/모의고사2.png" width="700" height="280">|
+|<img src="github/모의고사.png" width="700" height="200">|<img src="github/모의고사1.png" width="700" height="200">|<img src="github/모의고사2.png" width="700" height="200">|
 | 커뮤니티(1) | 커뮤니티(2) | 커뮤니티(3) |
-|<img src="github/커뮤니티.png" width="700" height="280">|<img src="github/커뮤니티1.png" width="700" height="280">|<img src="github/커뮤니티2.png" width="700" height="280">|
+|<img src="github/커뮤니티.png" width="700" height="200">|<img src="github/커뮤니티1.png" width="700" height="200">|<img src="github/커뮤니티2.png" width="700" height="200">|
 | 학습관리(1) | 학습관리(2) | 학습관리(3) |
-|<img src="github/학습관리.png" width="700" height="280">|<img src="github/학습관리달력.png" width="700" height="280">|<img src="github/학습관리달력1.png" width="700" height="280">|
+|<img src="github/학습관리.png" width="700" height="200">|<img src="github/학습관리달력.png" width="700" height="200">|<img src="github/학습관리달력1.png" width="700" height="200">|
 |        |        |        |
 
 | 카테고리 | 주요 기능 | 기능 정의                                      |
-|-------|-----------|------------------------------------------|
+|-------------|---------------|------------------------------------------|
 | 모의고사 | 모의고사 응시 | • 모의고사 문제, 정답, 해설 파일 제공 </br> • [응시하기] 버튼 탭 후 나오는 시험지 화면에서 타이머, 필기, 마킹 연습을 위한 OMR 카드(Modal Button) 기능 제공 </br> • 모의고사 응시 완료 시 자동 채점 기능 제공 |
 | 모의고사 | 모의고사 피드백 | • 시험지 화면에서 선생님의 필기(연필, 형광펜 등)와 댓글 형태의 1:1 피드백 제공 |
 | 커뮤니티 | 공부방 | • 게시판을 통해 모르는 질문에 대해 문답 |
