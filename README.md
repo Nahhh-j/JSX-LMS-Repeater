@@ -20,6 +20,10 @@
 
 
 # 시작 가이드
+```
+$ git clone https://github.com/Nahhh-j/JSX-LMS-Repeater.git
+```
+
 ### Front-end
 ```
 $ npm run dev
