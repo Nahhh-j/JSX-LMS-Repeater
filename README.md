@@ -125,7 +125,7 @@ $ python manage.py runserver
 
 # 기타
 
-[기획 문서](https://infrequent-morning-c1a.notion.site/2ab54d5d6f074c2da5f2473f134d4779?v=09a4cb89e8fd4ca4b901d13469b0ac26&pvs=4)
+[기획 문서](https://infrequent-morning-c1a.notion.site/JSX-70dae382871b4e01a7741cfb3ba629d8?pvs=4)
 
 [UserFlow](https://infrequent-morning-c1a.notion.site/UserFlow-b25fd902422b48c9b344a29d788ee730?pvs=4)
 
